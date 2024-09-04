@@ -1,7 +1,23 @@
 import { StyleSheet, Text, View, Button, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
 
-export default function Results({ navigation}) {
+export default function Results({ navigation, route}) {
+
+  const { result } = route.params;
+  const predictions = result.predictions[0];
+  console.log(result);
+  console.log("predictions", predictions);
+
+  // Get the indexes of the sorted array in descending order and limit to top 4
+const top4Indexes = predictions
+.map((value, index) => ({ value, index }))
+.sort((a, b) => b.value - a.value)
+.slice(0, 4)
+.map(item => item.index);
+
+console.log('Top 4 Indexes:', top4Indexes); // Output: [6, 3, 2, 1]
+
+
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.pop(2)} style={styles.back}><Image source={require('../../assets/icons/previous.png')} style={ styles.back } /></TouchableOpacity>

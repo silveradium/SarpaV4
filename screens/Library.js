@@ -2,13 +2,13 @@ import { StyleSheet, Text, View, Button, Image, TouchableOpacity, TextInput, Fla
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import DetailsScreen from './minor_stacks/Details';
-// import snakes from '../database/snakes.js';
+import snakes from '../database/snakes.js';
 import { useState, useEffect } from 'react';
 
 const Stack = createStackNavigator();
 
 const info = {
-
+//h
     english: {
         name: "Name",
         family: "Family",
@@ -34,14 +34,17 @@ function Library({ navigation, route }) {
     const { language } = route.params;
 
     const [snake, setSnake] = useState('');
-    const [snakes, setSnakes] = useState([]);
-//hhhhhhh
-    useEffect(() => {
-        fetch('http://127.0.0.1:5000/snakes')
-            .then(response => response.json())
-            .then(data => setSnakes(data))
-            .catch(error => console.error('Error fetching snakes:', error));
-    }, []);
+
+    /// This part fetches data from the python local host server.
+
+    // const [snakes, setSnakes] = useState([]);
+
+    // useEffect(() => {
+    //     fetch('http://127.0.0.1:5000/snakes')
+    //         .then(response => response.json())
+    //         .then(data => setSnakes(data))
+    //         .catch(error => console.error('Error fetching snakes:', error));
+    // }, []);
 
     const SnakeCard = ({item}) => {
         return(
@@ -49,9 +52,12 @@ function Library({ navigation, route }) {
                 name: item[language].name,
                 description: item[language].description,
                 image: item[language].image
-            })}} >
-                <View style={styles.card}>
-                    <Image source={{ uri: item[language].image }} style={styles.image} />
+            })}} > 
+                <View style={styles.card}>  
+                    <Image 
+                    // source={{ uri: item[language].image }}   /// This is for fetching images from the local host server
+                    source={item[language].image}   /// This is for fetching images from the database
+                    style={styles.image} />
                     <View style={styles.text}>
                         <Text style={styles.title}>{item[language].name}</Text>
                         <Text style={styles.scientificName}>{item[language].scientific}</Text>
