@@ -9,6 +9,8 @@ export default function Scan({ navigation }) {
 
     const [image, setImage] = useState('https://reactnative.dev/img/tiny_logo.png');
 
+    const [imageUri, setImageUri] = useState(null);
+
     const onCamera = () => {
 
     //   navigation.navigate('Results');
@@ -37,6 +39,45 @@ export default function Scan({ navigation }) {
           });
 
     };
+
+    const pickImage = () => {
+        ImagePicker.openPicker({
+            width: 300,
+            height: 400,
+            cropping: true,
+        }).then(image => {
+            setImageUri(image.path);
+            sendImageToServer(image.path);
+        }).catch(error => {
+            console.error('Error picking image:', error);
+        });
+    };
+
+    const sendImageToServer = async (uri) => {
+        const formData = new FormData();
+        formData.append('image', {
+            uri: uri,
+            type: 'image/jpeg',
+            name: 'photo.jpg',
+        });
+
+        try {
+            const response = await fetch('http://127.0.0.1:5000/predict', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+
+            const result = await response.json();
+            console.log(result);
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    
 
     return (
         <View style={styles.container}>

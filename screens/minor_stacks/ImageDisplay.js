@@ -8,18 +8,44 @@ export default function ImageDisplay({navigation, route}) {
   const { image } = route.params;
   const [loading, setLoading] = useState(false);
 
+  const sendImageToServer = async (uri) => {
+    const formData = new FormData();
+    formData.append('image', {
+        uri: uri,
+        type: 'image/jpeg',
+        name: 'photo.jpg',
+    });
+
+    try {
+        const response = await fetch('http://127.0.0.1:5000/predict', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Content-Type': 'multipart/form-data',
+            },
+        });
+
+        const result = await response.json();
+        console.log(result)
+        navigation.navigate('Results', {result: result});
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
+
   useEffect(() => {
+    sendImageToServer(image);
     // Show the spinner
-    setLoading(true);
+    // setLoading(true);
 
-    // Hide the spinner after 5 seconds
-    const timer = setTimeout(() => {
-      setLoading(false);
-      navigation.navigate('Results');
-    }, 5000);
+    // // Hide the spinner after 5 seconds
+    // const timer = setTimeout(() => {
+    //   setLoading(false);
+    //   navigation.navigate('Results');
+    // }, 5000);
 
-    // Cleanup the timer on component unmount
-    return () => clearTimeout(timer);
+    // // Cleanup the timer on component unmount
+    // return () => clearTimeout(timer);
   }, []);
 
   return (

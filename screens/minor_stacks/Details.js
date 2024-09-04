@@ -58,7 +58,8 @@ function Taxonomy() {
   );
 }
 
-function Discription() {
+function Discription(route) {
+  const { description } = route.route.params;
   return (
     <View style={styles.containerChild}>
       <View style={styles.contentChild}>
@@ -67,12 +68,15 @@ function Discription() {
 The maxillary bones support 2-6 pairs of fangs, reaching 16.5 mm in length. The body is stout and circular, with strongly keeled dorsal scales (27-33 mid-body rows), except for the smooth lowest row. Ventrals number 153-180, with an undivided anal plate. The short tail comprises 14% of total length, with 41-68 paired subcaudals.
 Coloration includes a yellow to brown base with three series of dark brown, black-ringed spots. The head features dark temple patches and a V or X marking. A dark, light-outlined streak runs behind each eye. The venter is light-colored with scattered dark spots.{'\n'}{'\n'}
 Russell's viper averages 120 cm in mainland Asia, slightly shorter on islands, with a maximum length of 166 cm. It has a more slender build compared to most vipers.</Text>
+{/* <Text style={styles.description}>{description}</Text> */}
         </ScrollView>
       </View>
     </View>
   );
 }
-function Location() {
+function Location( route) {
+
+
   return (
     <View style={styles.containerChild}>
       <View style={styles.contentChild}>
@@ -85,17 +89,20 @@ function Location() {
 
 const Tab = createMaterialTopTabNavigator();
 
-export default function App({ navigation }) {
+export default function App({ navigation, route }) {
+
+  const { name, description, image } = route.params;
+
   return (
     // <NavigationContainer independent={true} >
       <View style={styles.container}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.back}><Image source={require('../../assets/icons/previous.png')} style={ styles.back } /></TouchableOpacity>
         
-      <Image source={require('../../assets/snakeImages/Russell_s Viper2.jpg')} style={ styles.background } />
+      <Image source={{ uri: image }} style={ styles.background } />
       <View style={styles.lineargradient}></View>
       <View style={styles.heading}>
         {/* <Image source={require('../../assets/snakeImages/Russell_s Viper2.jpg')} style={styles.image} /> */}
-        <Text style={styles.snakeName} >Russel's Viper</Text>
+        <Text style={styles.snakeName} >{name}</Text>
         <Text style={styles.scientificName} >Russel's Viper</Text>
       </View>
         <View style={styles.tabContainer}>
@@ -130,7 +137,7 @@ export default function App({ navigation }) {
                         }}>
             <Tab.Screen name="Overview" component={Overview} />
             <Tab.Screen name="Taxonomy" component={Taxonomy} />
-            <Tab.Screen name="Discription" component={Discription} />
+            <Tab.Screen name="Discription" component={Discription} initialParams={{ description }}/>
             <Tab.Screen name="Distribution" component={Location} />
           </Tab.Navigator>
         </View>
