@@ -50,8 +50,9 @@ function Library({ navigation, route }) {
         return(
             <TouchableOpacity onPress={() => {navigation.navigate('Details', {
                 name: item[language].name,
-                description: item[language].description,
-                image: item[language].image
+                description: item[language].description_mid,
+                image: item[language].image,
+                scientific: item[language].scientific,
             })}} > 
                 <View style={styles.card}>  
                     <Image 

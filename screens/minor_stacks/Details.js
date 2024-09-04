@@ -26,11 +26,14 @@ function Characteristics({Title, Value, Icon, width}) {
   )
 }
 
-function Overview() {
+function Overview( route) {
+
+  const {description } = route.route.params;
+
   return (
     <View style={styles.containerChild}>
       <View style={styles.contentChild}>
-        <Text style={styles.description}>The Russell’s viper is a large, heavy-bodied, highly venomous snake with a triangular head and striking brown marks. Distributed throughout the island except at extreme elevations. It's primarily active at night.</Text>
+        <Text style={styles.description}>{description}</Text>
         <View style={styles.charactersistics}>
 
           <Characteristics Title="Danger" Value="Highly Venomous" Icon="danger" width=""/>
@@ -64,11 +67,11 @@ function Discription(route) {
     <View style={styles.containerChild}>
       <View style={styles.contentChild}>
         <ScrollView> 
-        <Text style={styles.description}>The head is flat, triangular, distinct from neck, with a blunt, raised snout. Large nostrils are centered in single nasal scales. The crown has fragmented scales, with narrow supraoculars separated by 6-9 scales. Large eyes with yellow flecks are surrounded by 10-15 circumorbital scales. There are 10-12 supralabials, with the 4th and 5th larger, separated from the eye by 3-4 suboculars. The front pair of chin shields is enlarged.{'\n'}{'\n'}
+        {/* <Text style={styles.description}>The head is flat, triangular, distinct from neck, with a blunt, raised snout. Large nostrils are centered in single nasal scales. The crown has fragmented scales, with narrow supraoculars separated by 6-9 scales. Large eyes with yellow flecks are surrounded by 10-15 circumorbital scales. There are 10-12 supralabials, with the 4th and 5th larger, separated from the eye by 3-4 suboculars. The front pair of chin shields is enlarged.{'\n'}{'\n'}
 The maxillary bones support 2-6 pairs of fangs, reaching 16.5 mm in length. The body is stout and circular, with strongly keeled dorsal scales (27-33 mid-body rows), except for the smooth lowest row. Ventrals number 153-180, with an undivided anal plate. The short tail comprises 14% of total length, with 41-68 paired subcaudals.
 Coloration includes a yellow to brown base with three series of dark brown, black-ringed spots. The head features dark temple patches and a V or X marking. A dark, light-outlined streak runs behind each eye. The venter is light-colored with scattered dark spots.{'\n'}{'\n'}
-Russell's viper averages 120 cm in mainland Asia, slightly shorter on islands, with a maximum length of 166 cm. It has a more slender build compared to most vipers.</Text>
-{/* <Text style={styles.description}>{description}</Text> */}
+Russell's viper averages 120 cm in mainland Asia, slightly shorter on islands, with a maximum length of 166 cm. It has a more slender build compared to most vipers.</Text> */}
+<Text style={styles.description}>{description}</Text>
         </ScrollView>
       </View>
     </View>
@@ -91,19 +94,22 @@ const Tab = createMaterialTopTabNavigator();
 
 export default function App({ navigation, route }) {
 
-  const { name, description, image } = route.params;
+  const { name, description, image, scientific } = route.params;
 
   return (
     // <NavigationContainer independent={true} >
       <View style={styles.container}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.back}><Image source={require('../../assets/icons/previous.png')} style={ styles.back } /></TouchableOpacity>
         
-      <Image source={{ uri: image }} style={ styles.background } />
+      <Image 
+      //source={{ uri: image }}   /// with local server images
+      source={image}
+      style={ styles.background } />
       <View style={styles.lineargradient}></View>
       <View style={styles.heading}>
         {/* <Image source={require('../../assets/snakeImages/Russell_s Viper2.jpg')} style={styles.image} /> */}
         <Text style={styles.snakeName} >{name}</Text>
-        <Text style={styles.scientificName} >Russel's Viper</Text>
+        <Text style={styles.scientificName} >{scientific}</Text>
       </View>
         <View style={styles.tabContainer}>
           <Tab.Navigator 
@@ -135,7 +141,7 @@ export default function App({ navigation, route }) {
                           
           
                         }}>
-            <Tab.Screen name="Overview" component={Overview} />
+            <Tab.Screen name="Overview" component={Overview} initialParams={{ description }}/>
             <Tab.Screen name="Taxonomy" component={Taxonomy} />
             <Tab.Screen name="Discription" component={Discription} initialParams={{ description }}/>
             <Tab.Screen name="Distribution" component={Location} />

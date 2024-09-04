@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View, Button, ImageBackground, Image, TouchableOpacity } from 'react-native';
 import React from 'react';
+import snakes from '../../database/snakes.js';
+
 
 export default function Results({ navigation, route}) {
 
@@ -16,22 +18,22 @@ const top4Indexes = predictions
 .map(item => item.index);
 
 console.log('Top 4 Indexes:', top4Indexes); // Output: [6, 3, 2, 1]
-
+console.log(snakes[top4Indexes[0]].english.name);
 
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={() => navigation.pop(2)} style={styles.back}><Image source={require('../../assets/icons/previous.png')} style={ styles.back } /></TouchableOpacity>
-      <Image source={require('../../assets/snakeImages/Russell_s Viper1.jpg')} style={ styles.background } />
+      <Image source={snakes[top4Indexes[0]].english.image} style={ styles.background } />
       <View style={styles.top}>
         <View style={styles.heading}>
           <Text style={styles.headingText}>Most Likely</Text>
         </View>
         <View style={styles.snakeName}>
-          <Text style={styles.title}>Russell's Viper</Text>
-          <Text style={styles.subtitle}>Daboia russelii</Text>
+          <Text style={styles.title}>{snakes[top4Indexes[0]].english.name}</Text>
+          <Text style={styles.subtitle}>{snakes[top4Indexes[0]].english.scientific}</Text>
         </View>
         <View style={styles.probability}>
-          <Text style={styles.probabilityText}>Probability: 98%</Text>
+          <Text style={styles.probabilityText}>{(predictions[top4Indexes[0]]*100).toFixed(1)}%</Text>
         </View>
         <View style={styles.characteristics}>
           <View style={styles.characteristic}>
@@ -41,7 +43,14 @@ console.log('Top 4 Indexes:', top4Indexes); // Output: [6, 3, 2, 1]
                 <Text style={styles.characteristicValue}>Venomous</Text>
               </View>
           </View>
-          <TouchableOpacity style={styles.readmore} onPress={() => navigation.navigate('Details')}>
+          <TouchableOpacity style={styles.readmore} onPress={() => navigation.navigate('Details',
+            {
+              name: snakes[top4Indexes[0]].english.name,
+              description: snakes[top4Indexes[0]].english.description_mid,
+              image: snakes[top4Indexes[0]].english.image,
+              scientific: snakes[top4Indexes[0]].english.scientific,
+          }
+          )}>
             <Text style={styles.readmoreText}>Read More </Text>
           </TouchableOpacity>
         </View>
@@ -52,9 +61,38 @@ console.log('Top 4 Indexes:', top4Indexes); // Output: [6, 3, 2, 1]
 
           <Text style={[styles.headingText, {textAlign: 'left', marginLeft: 30, fontFamily: 'Poppins-Light'}]}>Other Possibilites</Text>
           <View style={[styles.characteristics, {justifyContent: 'space-around', padding: 20}]}>
-            <Image source={require('../../assets/snakeImages/Snake1.png')} style={styles.otherimages} />
-            <Image source={require('../../assets/snakeImages/banded kukri snake.jpg')} style={styles.otherimages} />
-            <Image source={require('../../assets/snakeImages/olive keelback.jpg')} style={styles.otherimages} />
+          <TouchableOpacity style={styles.otherimagescover} onPress={() => navigation.navigate('Details',
+            {
+              name: snakes[top4Indexes[1]].english.name,
+              description: snakes[top4Indexes[1]].english.name,
+              image: snakes[top4Indexes[1]].english.image,
+              scientific: snakes[top4Indexes[1]].english.scientific,
+            }
+          )}>
+              <Image source={snakes[top4Indexes[1]].english.image} style={styles.otherimages} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.otherimagescover} onPress={() => navigation.navigate('Details',
+            {
+              name: snakes[top4Indexes[2]].english.name,
+              description: snakes[top4Indexes[2]].english.description_mid,
+              image: snakes[top4Indexes[2]].english.image,
+              scientific: snakes[top4Indexes[2]].english.scientific,
+            }
+          )}>
+              <Image source={snakes[top4Indexes[2]].english.image} style={styles.otherimages} />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.otherimagescover} onPress={() => navigation.navigate('Details',
+            {
+              name: snakes[top4Indexes[3]].english.name,
+              description: snakes[top4Indexes[3]].english.description_mid,
+              image: snakes[top4Indexes[3]].english.image,
+              scientific: snakes[top4Indexes[3]].english.scientific,
+            }
+          )}>
+              <Image source={snakes[top4Indexes[3]].english.image} style={styles.otherimages} />
+          </TouchableOpacity>
+            
+        
           </View>
       </View>
 
@@ -196,9 +234,12 @@ const styles = StyleSheet.create({
       marginRight: 10,
     },
     otherimages: {
-      width: 140,
+      width: '100%',
       height: 110,
       borderRadius: 20,
       margin: 1,
+    },
+    otherimagescover: {
+      width: "30%",
     },
 });
