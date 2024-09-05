@@ -18,17 +18,17 @@ const info = {
           next: 'Read More',
       },
       sinhala: {
-          scanText: 'ඔබගේ තෙල් අනුකූලනය කරන්න',
-          funFact: 'ශ්‍රී ලංකාවේ අපේක්ෂාවන් 60ක් ඇතිකරගත්තේ',
-          medicalText: 'මතකය හෝ ද්විතීය පිටවීම්',
-          preventionText: 'මතකය හෝ ද්විතීය පිටවීම්',
+          scanText: 'ඔබේ සර්පයා හඳුනා ගන්න',
+          funFact: 'ලංකාවට ආවේණික සර්පයන් 60ක් ඉන්නවා',
+          medicalText: 'සර්ප දෂ්ඨනයකදී ප්‍රථමාධාර පියවර',
+          preventionText: 'සර්පයන් වැළැක්වීම සහ ඉවත් කිරීම',
           next: 'තවත් කියවන්න',
       },
       tamil: {
-          scanText: 'உங்கள் பாம்பை அடையாளம் செய்க',
-          funFact: 'இலங்கையில் 60 உயிரினங்கள் உள்ளன',
-          medicalText: 'பாம்பு கடிகளின் முதல் உதவி பாதுகாப்புகள்',
-          preventionText: 'பாம்புகளை முன்னேற்றுவது மற்றும் நீக்குதல்',
+          scanText: 'உங்கள் பாம்பை அடையாளம் காணுங்கள்',
+          funFact: 'இலங்கையில் 60 உள்ளூர் பாம்புகள் உள்ளன',
+          medicalText: 'பாம்பு கடித்தால் முதலுதவி',
+          preventionText: 'பாம்புகளைத் தடுத்தல் மற்றும் அகற்றுதல்',
           next: 'மேலும் வாசிக்க',
       }
     };
@@ -217,7 +217,7 @@ description: {
 export default function Home({route}) {
 
   const { language } = route.params;
-  console.log(language);
+  //console.log(language);
 
     return (
           <Stack.Navigator initialRouteName="HomeScreen" >
