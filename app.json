@@ -3,7 +3,7 @@
     "name": "Sarpa",
     "slug": "Sarpa",
     "description": "Sarpa is a mobile application that helps you identify snakes in your area.",
-    "version": "1.1.0",
+    "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icons/app-logo.png",
     "userInterfaceStyle": "light",
