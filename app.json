@@ -1,15 +1,16 @@
 {
   "expo": {
-    "name": "SarpaV4",
-    "slug": "SarpaV4",
+    "name": "Sarpa",
+    "slug": "Sarpa",
+    "description": "Sarpa is a mobile application that helps you identify snakes in your area.",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icons/app-logo.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icons/start-up.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#000000"
     },
     "ios": {
       "supportsTablet": true,
@@ -27,6 +28,11 @@
     },
     "plugins": [
       "expo-font"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "503d5600-147e-43d5-b08a-bac7d24f6292"
+      }
+    }
   }
 }
